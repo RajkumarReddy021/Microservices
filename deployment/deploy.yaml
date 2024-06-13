@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: first-replicaset
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      a: america
+  template:
+    metadata:
+      labels:
+        a: america
+    spec:
+      containers:
+      - name: nginx
+        image: httpd
+        ports:
+        - containerPort: 80  # Add this line to expose the container port
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    a: america
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80   # This should match the containerPort in the deployment
+      nodePort: 30007
+
