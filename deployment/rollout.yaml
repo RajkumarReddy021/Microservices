@@ -4,9 +4,7 @@ metadata:
   name: first-replicaset
   namespace: default
 spec:
-  strategy:
-    type: Recreate
-  replicas: 3
+  replicas: 5
   selector:
     matchLabels:
       a: america
